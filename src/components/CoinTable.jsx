@@ -1,5 +1,5 @@
 import React from "react";
-import numeral from "numeral";
+import numeral from "numeral"; //Librería para manejo de números con formato
 import CoinLogo from "./CoinLogo";
 const CoinTable = ({ coins }) => {
   return (
