@@ -1,23 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
+//importación de React y Hooks
+import React, { useEffect, useState } from "react";
+
+//importacion de helpers
+import { getCoins, searchCoin } from "./helpers/CoinFetch";
+
+//importacion de componentes
+import CoinNavbar from "./components/CoinNavbar";
+import CoinSearch from "./components/CoinSearch";
+import CoinTable from "./components/CoinTable";
 
 function App() {
+  //Estado de criptomonedas
+  const [coins, setCoins] = useState({
+    data: [],
+    update: true,
+    loading: true,
+  });
+
+  //Estado de formulario Busqueda
+  const [formValue, setFormValue] = useState("");
+
+  //Traer datos generales cuando se actualice
+  useEffect(() => {
+    getCoins().then((resp) => {
+      setCoins({
+        data: resp,
+        update: false,
+        loading: false,
+      });
+      setFormValue("");
+    });
+  }, [coins.update]);
+
+  //traer datos de busqueda segun el input
+  useEffect(() => {
+    searchCoin(formValue).then((resp) => {
+      setCoins({
+        data: resp,
+        update: false,
+        loading: false,
+      });
+    });
+  }, [formValue]);
+
+  //Change del input
+  const handleChange = ({ target }) => {
+    setFormValue(target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CoinNavbar coins={coins} setCoins={setCoins} />
+      <div className="container mt-3">
+        <CoinSearch handleChange={handleChange} formValue={formValue} />
+        <div className="row">
+          <div className="col ">
+            {coins.loading ? (
+              <h3 className="text-white ">Cargando...</h3>
+            ) : (
+              <CoinTable coins={coins} />
+              // <ul>
+              //   {coins.data.map((item) => (
+              //     <li key={item.id}>
+              //       {item.symbol} -{numeral(item.supply).format("($ 0.00 a)")}
+              //     </li>
+              //   ))}
+              // </ul>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
