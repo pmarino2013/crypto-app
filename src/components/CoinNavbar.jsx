@@ -12,8 +12,10 @@ const CoinNavbar = ({ coins, setCoins }) => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <img className="img-logo" src={logo} alt="Logo" />
-          <span className="navbar-brand">CryptoApp</span>
+          <div>
+            <img className="img-logo" src={logo} alt="Logo" />
+            <span className="navbar-brand">CryptoApp</span>
+          </div>
 
           <button
             className=" btn btn-coin"
