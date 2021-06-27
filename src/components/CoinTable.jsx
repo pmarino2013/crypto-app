@@ -8,7 +8,9 @@ const CoinTable = ({ coins }) => {
         <thead className="thead-dark">
           <tr>
             <th scope="col">#Rank</th>
-            <th scope="col">Name</th>
+            <th scope="col" className="text-logo">
+              Name
+            </th>
             <th scope="col">Price</th>
             <th scope="col">Market cap</th>
             <th scope="col">VWAP(24)</th>
@@ -21,7 +23,7 @@ const CoinTable = ({ coins }) => {
           {coins.data.map((coin) => (
             <tr key={coin.id}>
               <th scope="row">{coin.rank}</th>
-              <td>
+              <td className="text-logo">
                 <CoinLogo logo={coin.symbol} />
 
                 {coin.name}
