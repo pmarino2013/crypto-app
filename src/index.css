@@ -39,3 +39,46 @@ body {
 .text-logo {
   text-align: left;
 }
+
+/* ============LOGIN=========== */
+
+.card-login {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+}
+
+.inputCommon {
+  border-radius: 25px !important;
+  padding: 10px !important;
+  height: auto !important;
+}
+
+.btnLogin {
+  border-radius: 3px !important;
+  padding: 10px !important;
+  border: 2px solid #146d6c !important;
+  background-color: transparent !important;
+  color: #146d6c !important;
+}
+.btnLogin:hover {
+  background-color: #146d6c !important;
+  color: #fff !important;
+}
+
+.bg-img {
+  background-color: #253337;
+}
+.bg-login-image {
+  background: url("./assets/cripto-logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 200px;
+  margin-top: 100px;
+}
