@@ -1,76 +1,21 @@
 //importación de React y Hooks
-import React, { useEffect, useState } from "react";
-
-//importacion de helpers
-import { getCoins, searchCoin } from "./helpers/CoinFetch";
-
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+//importación de helpers
+import ProtectedRoute from "./helpers/ProtectedRoute";
 //importacion de componentes
-import CoinNavbar from "./components/CoinNavbar";
-import CoinSearch from "./components/CoinSearch";
-import CoinTable from "./components/CoinTable";
+import Home from "./components/Home";
+import LoginPage from "./components/LoginPage";
 
 function App() {
-  //Estado de criptomonedas
-  const [coins, setCoins] = useState({
-    data: [],
-    update: true,
-    loading: true,
-  });
-
-  //Estado de formulario Busqueda
-  const [formValue, setFormValue] = useState("");
-
-  //Traer datos generales cuando se actualice
-  useEffect(() => {
-    getCoins().then((resp) => {
-      setCoins({
-        data: resp,
-        update: false,
-        loading: false,
-      });
-      setFormValue("");
-    });
-  }, [coins.update]);
-
-  //traer datos de busqueda segun el input
-  useEffect(() => {
-    searchCoin(formValue).then((resp) => {
-      setCoins({
-        data: resp,
-        update: false,
-        loading: false,
-      });
-    });
-  }, [formValue]);
-
-  //Change del input
-  const handleChange = ({ target }) => {
-    setFormValue(target.value);
-  };
-
   return (
-    <div>
-      <CoinNavbar coins={coins} setCoins={setCoins} />
-      <div className="container mt-3">
-        <CoinSearch handleChange={handleChange} formValue={formValue} />
-        <div className="row">
-          <div className="col ">
-            {coins.loading ? (
-              <h3 className="text-white ">Cargando...</h3>
-            ) : (
-              <CoinTable coins={coins} />
-              // <ul>
-              //   {coins.data.map((item) => (
-              //     <li key={item.id}>
-              //       {item.symbol} -{numeral(item.supply).format("($ 0.00 a)")}
-              //     </li>
-              //   ))}
-              // </ul>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/login" component={LoginPage} />
+        <ProtectedRoute exact path="/" component={Home} />
+        <Route to="*" component={() => "404 Not Found"} />
+      </Switch>
+    </Router>
   );
 }
 

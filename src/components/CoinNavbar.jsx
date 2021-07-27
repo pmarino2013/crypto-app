@@ -1,7 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import logo from "../assets/cripto-logo.png";
 const CoinNavbar = ({ coins, setCoins }) => {
+  const history = useHistory();
   const handleLoading = () => {
     setCoins({
       ...coins,
@@ -25,6 +27,15 @@ const CoinNavbar = ({ coins, setCoins }) => {
             Actualizar
           </button>
         </div>
+        <button
+          className="btn"
+          onClick={() => {
+            localStorage.removeItem("crypto_app_user");
+            history.push("/login");
+          }}
+        >
+          Salir
+        </button>
       </nav>
     </div>
   );
