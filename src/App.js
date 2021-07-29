@@ -13,7 +13,7 @@ function App() {
       <Switch>
         <Route exact path="/login" component={LoginPage} />
         <ProtectedRoute exact path="/" component={Home} />
-        <Route to="*" component={() => "404 Not Found"} />
+        <Route path="*" component={() => "404 Not Found"} />
       </Switch>
     </Router>
   );
